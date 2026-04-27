@@ -1,0 +1,21 @@
+Selection_recherche :
+    la table associatif autorisation associe a chaque type de personel les entités dont elle aura accés cela nous permet de limiter l'accés pour les personel de niveau bas
+    la table associatif configuration permet d'afficher les attribut et les entités d'une manière plus convenente puisqu'on peut pas afficher des noms comme DATE_NAISSANCE qui est un attribut oracle a l'utilisateur.
+        elle associe une label et les attribut ID_PERSONNEL devient id_personel par exemple et cela nous évite de faire un switch case pour savoir quelle entité choisit pour l'affiché a l'utilisateur on k'accèed à partir de ce tableau
+    la fonction htmlspecialchars est utilisé pour des raisons de securité elle empèche d'executer des scripts si j'amais on arrive a l'inserer dans un tableau dans la bd.
+
+resultat_recherche : 
+    Un garde-fou est utiliser au debut :
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header("Location: selection_rech.php");
+        exit;
+    }
+    cette condition sert a verifier si l'utilisateur est arrivé sur la page à travers ma methode post c'est l'equivalent de verifier isset($_POST['entite']) mais faut probablement mettre les deux comme bonne pratique
+    !in_array($entite, $entites_autorisees, true) -> ici on reverfie si on a le droit à une entité ou pas on récupère au debut le type personnel de la session comme ça on sera capable d'éviter une violation possible des droits
+    die c comme un exit mais elle affiche un message avant d'arrêter le script, on recupère le message à l'aide de $e[message]
+    pour rappel implode transforme un tableau en string en lien entre les cases en utilisant le premier paramètre implode('liés',$tab)
+    === mode stricte de comparaison ne fait pas de conversion de type si le type n'est pas identique elle renvoie faut.
+    
+
+
+
